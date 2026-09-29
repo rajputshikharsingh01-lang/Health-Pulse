@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="HEALTHPULSE - Personal Health Monitoring Dashboard">
+<title>HEALTHPULSE | Health Monitoring Dashboard</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<div class="app-shell">
+  <aside class="sidebar" id="sidebar">
+    <div class="brand"><div class="brand-mark">♥</div><div><strong>HEALTH<span>PULSE</span></strong><small>Personal health</small></div></div>
+    <nav>
+      <button class="nav-item active" data-section="dashboard"><span>⌂</span>Dashboard</button>
+      <button class="nav-item" data-section="metrics"><span>⌁</span>Health Metrics</button>
+      <button class="nav-item" data-section="bmi"><span>⚖</span>BMI Calculator</button>
+      <button class="nav-item" data-section="activity"><span>◈</span>Activity</button>
+      <button class="nav-item" data-section="sleep"><span>☾</span>Sleep</button>
+      <button class="nav-item" data-section="water"><span>◍</span>Water Intake</button>
+      <button class="nav-item" data-section="reports"><span>▤</span>Reports</button>
+      <button class="nav-item" data-section="settings"><span>⚙</span>Settings</button>
+    </nav>
+    <div class="sidebar-bottom"><div class="support-card"><div class="support-icon">✦</div><strong>Stay consistent</strong><p>Small daily habits create measurable progress.</p></div></div>
+  </aside>
+
+  <main class="main">
+    <header class="topbar">
+      <button class="icon-btn mobile-menu" id="menuBtn">☰</button>
+      <div class="search"><span>⌕</span><input id="searchInput" placeholder="Search your dashboard..."></div>
+      <div class="top-actions">
+        <button class="icon-btn" id="themeBtn" title="Toggle theme">☀</button>
+        <button class="icon-btn notification" id="notifyBtn" title="Notifications">♧<i></i></button>
+        <div class="profile"><div class="avatar">SS</div><div><strong id="headerName">Shikhar</strong><small>Health profile</small></div><span>⌄</span></div>
+      </div>
+    </header>
+
+    <div class="content">
+      <section class="page-section active" id="section-dashboard">
+        <div class="welcome">
+          <div><span class="eyebrow">PERSONAL HEALTH OVERVIEW</span><h1>Good to see you, <span id="welcomeName">Shikhar</span> 👋</h1><p>Here’s your health snapshot for today. Keep building healthy habits.</p></div>
+          <div class="date-pill" id="todayDate"></div>
+        </div>
+        <div class="metric-grid">
+          <article class="metric-card"><div class="metric-top"><span class="metric-icon rose">♥</span><span class="trend up">↗ 4.2%</span></div><div class="metric-value" id="dashHeart">72 <small>BPM</small></div><div class="metric-label">Heart Rate</div><div class="mini-line"><span style="width:72%"></span></div></article>
+          <article class="metric-card"><div class="metric-top"><span class="metric-icon blue">◉</span><span class="trend neutral">Normal</span></div><div class="metric-value" id="dashBP">120/80 <small>mmHg</small></div><div class="metric-label">Blood Pressure</div><div class="status-line"><i></i> Within normal range</div></article>
+          <article class="metric-card"><div class="metric-top"><span class="metric-icon purple">⚖</span><span class="trend down">↓ 1.8%</span></div><div class="metric-value" id="dashWeight">62 <small>kg</small></div><div class="metric-label">Weight</div><div class="mini-line"><span style="width:58%"></span></div></article>
+          <article class="metric-card"><div class="metric-top"><span class="metric-icon orange">◌</span><span class="trend neutral">Optimal</span></div><div class="metric-value">98 <small>%</small></div><div class="metric-label">Blood Oxygen</div><div class="status-line"><i></i> Excellent oxygen level</div></article>
+        </div>
+
+        <div class="dashboard-grid">
+          <article class="panel chart-panel large"><div class="panel-head"><div><h2>Health trends</h2><p>Track your key metrics over the last 7 days</p></div><select id="trendSelect"><option value="weight">Weight</option><option value="heart">Heart Rate</option><option value="sleep">Sleep</option></select></div><div class="chart-wrap"><canvas id="trendChart"></canvas></div></article>
+          <article class="panel"><div class="panel-head"><div><h2>Daily goals</h2><p>Today’s progress</p></div><span class="goal-date">Today</span></div><div class="goals" id="goalsList"></div></article>
+        </div>
+
+        <div class="dashboard-grid bottom-grid">
+          <article class="panel"><div class="panel-head"><div><h2>Activity summary</h2><p>Your movement today</p></div><button class="text-btn" data-go="activity">View details →</button></div><div class="activity-stats"><div><b id="dashSteps">6,842</b><span>Steps</span></div><div><b>4.8</b><span>km distance</span></div><div><b>312</b><span>kcal burned</span></div></div><div class="progress"><span style="width:68%"></span></div><small class="muted">68% of your 10,000 step goal</small></article>
+          <article class="panel"><div class="panel-head"><div><h2>Health insight</h2><p>Based on your recent data</p></div><span class="insight-badge">✦ Insight</span></div><div class="insight"><div class="insight-icon">💧</div><div><strong>Hydration is on track</strong><p id="insightText">You’re at 74% of your daily water goal. Keep sipping regularly throughout the day.</p></div></div></article>
+        </div>
+      </section>
+
+      <section class="page-section" id="section-metrics">
+        <div class="section-heading"><div><span class="eyebrow">TRACK & RECORD</span><h1>Health Metrics</h1><p>Add and manage your health readings in one place.</p></div><button class="primary-btn" id="addMetricBtn">＋ Add Reading</button></div>
+        <div class="metrics-summary"><div class="summary-card"><span>Latest Heart Rate</span><b>72 BPM</b><small>Normal</small></div><div class="summary-card"><span>Latest Weight</span><b id="metricWeight">62 kg</b><small>Stable</small></div><div class="summary-card"><span>Blood Oxygen</span><b>98%</b><small>Excellent</small></div><div class="summary-card"><span>Temperature</span><b>36.7°C</b><small>Normal</small></div></div>
+        <article class="panel table-panel"><div class="panel-head"><div><h2>Recent readings</h2><p>Your recorded health measurements</p></div><select id="metricFilter"><option value="all">All metrics</option><option value="Heart Rate">Heart Rate</option><option value="Weight">Weight</option><option value="Blood Pressure">Blood Pressure</option><option value="Temperature">Temperature</option></select></div><div class="table-scroll"><table><thead><tr><th>Date</th><th>Metric</th><th>Value</th><th>Status</th><th>Action</th></tr></thead><tbody id="metricTable"></tbody></table></div></article>
+      </section>
+
+      <section class="page-section" id="section-bmi">
+        <div class="section-heading"><div><span class="eyebrow">BODY COMPOSITION</span><h1>BMI Calculator</h1><p>Calculate your body mass index and track your result.</p></div></div>
+        <div class="two-col"><article class="panel bmi-card"><h2>Calculate your BMI</h2><p class="muted">Enter your height and weight below.</p><div class="form-grid"><label>Height (cm)<input type="number" id="bmiHeight" value="170" min="50" max="250"></label><label>Weight (kg)<input type="number" id="bmiWeight" value="62" min="10" max="300"></label></div><button class="primary-btn full" id="calcBmi">Calculate BMI</button><div class="bmi-result"><span>Your BMI</span><strong id="bmiValue">21.45</strong><b id="bmiCategory">Normal</b><div class="bmi-scale"><i></i></div><div class="scale-labels"><span>Underweight</span><span>Normal</span><span>Overweight</span><span>Obesity</span></div></div></article><article class="panel"><div class="panel-head"><div><h2>BMI guide</h2><p>General adult BMI ranges</p></div></div><div class="bmi-guide"><div><span class="dot d1"></span><b>Underweight</b><em>&lt; 18.5</em></div><div><span class="dot d2"></span><b>Normal</b><em>18.5 – 24.9</em></div><div><span class="dot d3"></span><b>Overweight</b><em>25 – 29.9</em></div><div><span class="dot d4"></span><b>Obesity</b><em>30+</em></div></div><div class="note-box">BMI is a screening measure and does not diagnose health conditions. For personalized advice, consult a qualified healthcare professional.</div></article></div>
+      </section>
+
+      <section class="page-section" id="section-activity">
+        <div class="section-heading"><div><span class="eyebrow">MOVE MORE</span><h1>Activity Tracker</h1><p>Keep an eye on your daily movement and exercise.</p></div><button class="primary-btn" id="updateActivityBtn">Update Activity</button></div>
+        <div class="activity-big-grid"><div class="activity-ring panel"><div class="ring" id="stepRing"><div><strong id="stepsBig">6,842</strong><span>/ 10,000 steps</span></div></div><h3>Daily steps</h3><p class="muted">You’re making great progress.</p></div><div class="activity-detail"><div class="stat-panel"><span>🔥 Calories burned</span><b id="caloriesBig">312 kcal</b><div class="progress"><span style="width:62%"></span></div></div><div class="stat-panel"><span>📍 Distance</span><b>4.8 km</b><div class="progress"><span style="width:80%"></span></div></div><div class="stat-panel"><span>⏱ Active minutes</span><b>42 min</b><div class="progress"><span style="width:70%"></span></div></div></div></div><article class="panel chart-panel"><div class="panel-head"><div><h2>Weekly activity</h2><p>Steps completed each day</p></div></div><div class="chart-wrap"><canvas id="activityChart"></canvas></div></article>
+      </section>
+
+      <section class="page-section" id="section-sleep">
+        <div class="section-heading"><div><span class="eyebrow">REST & RECOVER</span><h1>Sleep Tracker</h1><p>Monitor your sleep routine and recovery.</p></div><button class="primary-btn" id="sleepBtn">＋ Log Sleep</button></div>
+        <div class="sleep-cards"><div class="summary-card"><span>Last night</span><b>7h 20m</b><small class="good">Good</small></div><div class="summary-card"><span>Weekly average</span><b>7h 05m</b><small>+18 min vs last week</small></div><div class="summary-card"><span>Sleep goal</span><b>8h</b><small>92% achieved</small></div></div>
+        <article class="panel chart-panel"><div class="panel-head"><div><h2>Sleep duration</h2><p>Last 7 nights</p></div></div><div class="chart-wrap"><canvas id="sleepChart"></canvas></div></article>
+      </section>
+
+      <section class="page-section" id="section-water">
+        <div class="section-heading"><div><span class="eyebrow">STAY HYDRATED</span><h1>Water Intake</h1><p>Track your hydration throughout the day.</p></div></div>
+        <div class="water-layout"><article class="panel water-main"><div class="water-visual"><div class="water-circle"><div><strong id="waterAmount">1,850</strong><span>ml</span></div></div><h2 id="waterPercent">74%</h2><p>of your daily goal</p></div><div class="water-controls"><div><span>Daily goal</span><strong id="waterGoalText">2,500 ml</strong></div><div class="water-progress"><span id="waterBar" style="width:74%"></span></div><div class="water-buttons"><button class="water-btn" data-water="250">＋250 ml</button><button class="water-btn" data-water="500">＋500 ml</button><button class="secondary-btn" id="resetWater">Reset</button></div></div></article><article class="panel"><div class="panel-head"><div><h2>Hydration tips</h2><p>Simple ways to stay hydrated</p></div></div><ul class="tips"><li><span>01</span>Start your morning with a glass of water.</li><li><span>02</span>Keep a bottle within reach while studying.</li><li><span>03</span>Drink water before, during and after exercise.</li><li><span>04</span>Use regular reminders instead of waiting until thirsty.</li></ul></article></div></section>
+
+      <section class="page-section" id="section-reports">
+        <div class="section-heading"><div><span class="eyebrow">YOUR PROGRESS</span><h1>Health Reports</h1><p>Review your recent health trends and print a summary.</p></div><button class="primary-btn" id="printReport">▣ Generate Report</button></div>
+        <div class="report-grid"><div class="report-card"><span>Weight trend</span><b>62.0 kg</b><small>↓ 1.8% this week</small></div><div class="report-card"><span>Average heart rate</span><b>72 BPM</b><small>Within your normal range</small></div><div class="report-card"><span>Sleep average</span><b>7h 05m</b><small>92% of your goal</small></div><div class="report-card"><span>Hydration</span><b id="reportWater">74%</b><small>of daily target</small></div></div><article class="panel chart-panel"><div class="panel-head"><div><h2>Weekly health overview</h2><p>Key trends from your dashboard</p></div></div><div class="chart-wrap"><canvas id="reportChart"></canvas></div></article></section>
+
+      <section class="page-section" id="section-settings">
+        <div class="section-heading"><div><span class="eyebrow">PREFERENCES</span><h1>Settings</h1><p>Personalize your health dashboard.</p></div></div>
+        <div class="two-col"><article class="panel"><h2>Profile</h2><p class="muted">Your basic health profile</p><div class="form-grid single"><label>Full name<input id="setName" value="Shikhar"></label><label>Age<input id="setAge" type="number" value="18"></label><label>Height (cm)<input id="setHeight" type="number" value="170"></label><label>Current weight (kg)<input id="setWeight" type="number" value="62"></label></div><button class="primary-btn" id="saveProfile">Save profile</button></article><article class="panel"><h2>Daily goals</h2><p class="muted">Set targets that work for you.</p><div class="form-grid single"><label>Water goal (ml)<input id="setWater" type="number" value="2500"></label><label>Step goal<input id="setSteps" type="number" value="10000"></label><label>Sleep goal (hours)<input id="setSleep" type="number" step=".5" value="8"></label></div><button class="primary-btn" id="saveGoals">Save goals</button><hr><h3>Appearance</h3><div class="setting-row"><span>Dark mode</span><button class="toggle" id="settingsTheme"><i></i></button></div><hr><button class="danger-btn" id="resetAll">Reset all data</button></article></div>
+      </section>
+    </div>
+  </main>
+</div>
+
+<div class="modal" id="metricModal"><div class="modal-card"><button class="close" data-close="metricModal">×</button><h2>Add health reading</h2><p class="muted">Record a new measurement.</p><label>Metric<select id="newMetric"><option>Heart Rate</option><option>Weight</option><option>Blood Pressure</option><option>Temperature</option></select></label><label>Value<input id="newValue" placeholder="e.g. 72"></label><label>Date<input id="newDate" type="date"></label><button class="primary-btn full" id="saveMetric">Save reading</button></div></div>
+<div class="toast" id="toast"></div>
+<script src="js/storage.js"></script><script src="js/charts.js"></script><script src="js/health.js"></script><script src="js/dashboard.js"></script><script src="js/app.js"></script>
+</body>
+</html>
